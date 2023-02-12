@@ -44,8 +44,6 @@ const verifyTokenAndAuthorization = async(req,res,next)=>{
         verifyToken(req,res,async()=>{
             let userId = req.params.userId;
             if(!mongoose.isValidObjectId(userId)) return res.status(400).send({status:false,message:"Invalid userId"})
-            let findUser = await userModel.findOne({_id:userId})
-            // if(!findUser) return res.status(404).send({status:false,message:"User not found"})
             if(req.tokenDetails.userId == userId){
                 next()
             }else{
