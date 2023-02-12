@@ -1,0 +1,56 @@
+NOTE : use bulk edit option while using form data, copy data in bulk edit
+
+// USER DETAIL
+
+fname:sherlock
+lname:homes
+email:ssh221@gmail.com
+phone:6777777777
+password:221gameon
+address:{"shipping":{"street":"221b Baker Street", "city":"london", "pincode":456456}, "billing":{"street":"221b Baker Street,", "city":"london", "pincode":456456}}
+profileImage : image
+
+
+
+// PRODUCT DETAILS
+
+title:t-shirt
+description: round neck t-shirt
+price:200
+currencyId:INR
+currencyFormat:₹
+isFreeShipping:true
+style:round neck
+availableSizes:x,xl
+installments:5
+
+
+title: shirt
+description: formal shirt
+price:1200
+currencyId:INR
+currencyFormat:₹
+style: formal 
+availableSizes:x,xl,xxl,l
+installments:0
+
+
+title: kurta
+description: red kurta
+price:3000
+currencyId:INR
+currencyFormat:₹
+style: fancy 
+availableSizes:x,xl,xxl,l
+installments:4
+
+
+
+title: suit
+description: office suit
+price:7800
+currencyId:INR
+currencyFormat:₹
+style: formal 
+availableSizes:x,xl,xxl,l
+installments:3

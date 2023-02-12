@@ -54,14 +54,15 @@ const createCart = async(req,res)=>{
 
         cartData.totalPrice = price
         let createCart = await cartModels.create(cartData)
+        var cartNewId = createCart._id
         return res.status(201).send({status:true,message:"Success cart",data:createCart})
     }
 
     // if user has cart then push product id to items
 
     if(checkuserHasCart) {
-            if(!cartId) return res.status(400).send({status:false,message:" your cart has been created, enter your cartId"})
-
+        
+            if(!cartId) return res.status(400).send({status:false,message:`your cart has been created, enter your cartId : ${cartNewId}`})
             cartId = cartId.trim()
             let checkCart = await cartModels.findOne({_id:cartId})
             if(!checkCart) return res.status(404).send({status:false,message:"This cart not found"})

@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const userModel = require("../models/userModel");
 const { uploadFile } = require("./aws");
 const { default: mongoose } = require("mongoose");
-const validator = require("validator")
 const {isvalidName, isvalidEmail, isvalidpassword, isValidTitle} =require("./validator")
 let validateMobile = /^[6-9][0-9]{9}$/;
 
@@ -63,10 +62,6 @@ if(!shipping || (Object.keys(shipping).length===0)) return res.status(400).send(
     if (!/^[^0][0-9]{2}[0-9]{3}$/.test(shipping.pincode))  return res.status(400).send({status: false,message: "Pincode should be a valid pincode number in shipping."});
 
 }    
-
-
-
-
 
 if(!billing || (Object.keys(billing).length===0)) return res.status(400).send({status:false,message:"Billing address is required"})
 {

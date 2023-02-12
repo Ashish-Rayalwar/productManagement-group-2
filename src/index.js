@@ -1,32 +1,26 @@
 const express = require("express")
 const  mongoose  = require("mongoose")
 mongoose.set('strictQuery', false);
+require("dotenv").config()
 const cors =require("cors")
 const route = require("./routes/route.js")
+const { dbconnection } = require("./database/db.js");
 
-const multer = require("multer")
-
-const PORT =  3000
+const multer = require("multer");
+const PORT = process.env.PORT || 3000
+const url = process.env.dbLink
 
 const app = express()
 
 app.use(express.json())
-// app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}))
 app.use(cors())
 app.use(multer().any())
 
 app.use("/", route)
 
-const dbconnection = async ()=>{
-   try {
-    await mongoose.connect("mongodb+srv://Ashish:7SiSkJ8Z0nkx2EWh@cluster0.8dgrxmt.mongodb.net/group02Database",{useNewUrlParser:true})
-    console.log("Database connect");
-   } catch (error) {
-    console.log("error while db connection", error.message);
-   }
-}
 
-dbconnection()
+dbconnection(url)
 
 app.listen(PORT ,()=>{
     console.log(`server start on port ${PORT}`);

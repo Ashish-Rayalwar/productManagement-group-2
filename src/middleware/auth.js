@@ -2,11 +2,7 @@ const  jwt  = require("jsonwebtoken");
 const { default: mongoose } = require("mongoose");
 const validator = require("validator");
 const userModel = require("../models/userModel");
-
-
-
-
-
+require("dotenv").config()
 
 
 const verifyToken = async (req,res,next)=>{
@@ -16,13 +12,10 @@ const verifyToken = async (req,res,next)=>{
      
     if(!token) return res.status(400).send({status:false,message:"Token is mandatory"})
     token = token.slice(7, token.length)
-    
-
-    // if(!validator.isJWT(token)) return res.status(400).send({status:false,msg:"Token is invalid"})
 
     if(token){
-
-    jwt.verify(token, "group2project-5",(err,tokenDetails)=>{
+        let jwt_Secret_Key = process.env.JWT_SECRET-KEY
+        jwt.verify(token, jwt_Secret_Key ,(err,tokenDetails)=>{
         if(err) return res.status(403).send({status:false,message:err.message})
         req.tokenDetails = tokenDetails
         next()

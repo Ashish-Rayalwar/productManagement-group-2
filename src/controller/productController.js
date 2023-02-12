@@ -16,7 +16,7 @@ const createProduct = async(req,res)=>{
     let data = req.body
     if (Object.keys(data).length === 0)return res.status(400).send({ status: false, message: "plz provide product details" });
 
-    let {title,description,price,currencyId,currencyFormat,availableSizes,installments,style,...rest} = data
+    let {title,description,price,currencyId,currencyFormat,availableSizes,installments,style, isFreeShipping,...rest} = data
     if (Object.keys(rest).length > 0)return res.status(400).send({ status: false, message: "plz provide valid fields" });
 
     if(!title) return res.status(400).send({ status: false, message: "title is required" })
@@ -91,6 +91,9 @@ const createProduct = async(req,res)=>{
         if(installments < 1) return res.status(400).send({status:false, message: " installment must be greater than 0" });
     }
     
+    if(isFreeShipping){
+      if(!["true,false"].includes(isFreeShipping)) return res.status(400).send({status:false,message:"isFreeShipping value can be either true or false."})
+    }
 
     let productDetails = {title,description,price,currencyId,currencyFormat,productImage:uploadedFileURL,availableSizes,installments,style}
 
@@ -333,7 +336,7 @@ const deleteProduct = async function(req,res){
   } catch (error) {
 
     console.log("error in delete Product ",error.message);
-    
+
     return res.status(500).send({status:false,data:error.mesage})
   }
 }
