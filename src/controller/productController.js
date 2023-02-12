@@ -92,7 +92,7 @@ const createProduct = async(req,res)=>{
     }
     
     if(isFreeShipping){
-      if(!["true,false"].includes(isFreeShipping)) return res.status(400).send({status:false,message:"isFreeShipping value can be either true or false."})
+      if(!["true","false"].includes(isFreeShipping)) return res.status(400).send({status:false,message:"isFreeShipping value can be either true or false."})
     }
 
     let productDetails = {title,description,price,currencyId,currencyFormat,productImage:uploadedFileURL,availableSizes,installments,style}
@@ -219,15 +219,15 @@ const updateProduct = async function(req,res){
       let data = req.body
       let productImage = req.files
 
-      if(productImage){
-        if(productImage.length>0){
-          if(productImage[0].fieldname != "productImage"){
-            return res.status(400).send({status:false,message:"invalid image key, use [ productImage ] as key"})
-        }
+//       if(productImage){
+//         if(productImage.length>0){
+//           if(productImage[0].fieldname != "productImage"){
+//             return res.status(400).send({status:false,message:"invalid image key, use [ productImage ] as key"})
+//         }
 
-    }
+//     }
         
- }
+//  }
     
       
       if(Object.keys(data).length === 0 && typeof productImage == "undefined" ) {

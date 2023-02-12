@@ -75,7 +75,7 @@ const createCart = async(req,res)=>{
             let checkProductDuplicate = await cartModels.findOne({"items.productId": productId, userId:userId })
 
             if (checkProductDuplicate){
-                let productAvailable = await cartModels.findOneAndUpdate({"items.productId": productId },{$inc:{'items.$.quantity':1,totalPrice:cartData.totalPrice+price}},{new:true}).select({__v:0,'items._id':0})
+                let productAvailable = await cartModels.findOneAndUpdate({"items.productId": productId },{$inc:{'items.$.quantity':1,totalPrice:cartData.totalPrice+price}},{new:true})
 
                 return res.status(201).send({status:true,message:"Success",data:productAvailable})
             }
@@ -141,10 +141,10 @@ const updateCart = async function (req, res) {
        })
 
    
-        if(!["0","1"].includes(removeProduct)) return res.status(400).send({ status: false, message: "invalid removeProduct value" })
-
-        if(findProductInCart.length===0) return res.status(404).send({ status: false, message: "product is not available in this cart or deleted" })
-
+       if(findProductInCart.length===0) return res.status(404).send({ status: false, message: "product is not available in this cart or deleted" })
+       
+       if(!["0","1"].includes(removeProduct)) return res.status(400).send({ status: false, message: "invalid removeProduct value" })
+       
         if((removeProduct <  0) || (removeProduct > 1)) return res.status(400).send({ status: false, message: "Invalid removeProduct value, must be '1' or '0' " })
 
         if (removeProduct == 1) {

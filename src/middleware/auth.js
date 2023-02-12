@@ -14,7 +14,7 @@ const verifyToken = async (req,res,next)=>{
     token = token.slice(7, token.length)
 
     if(token){
-        let jwt_Secret_Key = process.env.JWT_SECRET-KEY
+        let jwt_Secret_Key = process.env.JWT_SECRET_KEY
         jwt.verify(token, jwt_Secret_Key ,(err,tokenDetails)=>{
         if(err) return res.status(403).send({status:false,message:err.message})
         req.tokenDetails = tokenDetails

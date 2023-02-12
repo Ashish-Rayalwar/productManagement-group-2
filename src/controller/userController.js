@@ -2,6 +2,7 @@ const  validator = require("validator");
 const  JWT  = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const userModel = require("../models/userModel");
+require("dotenv").config()
 const { uploadFile } = require("./aws");
 const { default: mongoose } = require("mongoose");
 const {isvalidName, isvalidEmail, isvalidpassword, isValidTitle} =require("./validator")
@@ -45,7 +46,7 @@ if(!isvalidpassword(password)) return res.status(400).send({status: false,  mesa
   
 try {
     if(!address || (Object.keys(address).length===0)) return res.status(400).send({status:false,message:"Address is required"})
-let newAddress = JSON.parse(address)
+var newAddress = JSON.parse(address)
 let {shipping,billing,...newRest} = newAddress
 
 
@@ -139,10 +140,10 @@ const loginUser = async (req,res)=>{
     let originalPassword = await bcrypt.compare(password, userPassword)
     if(!originalPassword) return res.status(401).send({status:false, message:"Incorrect password, plz provide valid password"})
      
-
+    let secret_key = process.env.JWT_SECRET_KEY
 
      let userId = findUser._id
-     let token = JWT.sign({ userId: userId }, "group2project-5", {expiresIn: 8600});
+     let token = JWT.sign({ userId: userId }, secret_key, {expiresIn: 86400});
   
 
     return res.status(200).send({status:true,message:"User login successfull", data:{userId:userId, token:token}})
